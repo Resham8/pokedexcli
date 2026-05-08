@@ -1,7 +1,31 @@
 package main
 
-import "strings"
+import (
+	"bufio"
+	"fmt"	
+	"os"	
+)
 
-func cleanInput(text string) []string {
-	return strings.Fields(strings.ToLower(text))
+func startREPL() {
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		fmt.Print("Pokedex > ")
+
+		if scanner.Scan() {
+			line := scanner.Text()
+
+			command, exists := commands[line]
+
+			if exists {
+				err := command.callback()
+
+				if err != nil {
+					fmt.Println(err)
+				}
+			} else {
+				fmt.Println("Unknown command")
+			}
+
+		}
+	}
 }
