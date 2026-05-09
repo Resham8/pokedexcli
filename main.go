@@ -1,5 +1,17 @@
 package main
 
+import "pokedexcli/internal/pokeapi"
+
+type config struct {
+	pokeapiClient           pokeapi.Client
+	nextLocationAreaURL     *string
+	previousLocationAreaURL *string
+}
+
 func main() {
-	startREPL()
+	cfg := config{
+		pokeapiClient:  pokeapi.NewClient(),
+	}
+
+	startREPL(&cfg)
 }

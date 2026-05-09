@@ -6,7 +6,7 @@ import (
 	"os"	
 )
 
-func startREPL() {
+func startREPL(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -17,7 +17,7 @@ func startREPL() {
 			command, exists := commands[line]
 
 			if exists {
-				err := command.callback()
+				err := command.callback(cfg)
 
 				if err != nil {
 					fmt.Println(err)
