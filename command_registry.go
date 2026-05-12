@@ -6,12 +6,7 @@ type cliCommand struct {
 	callback    func(*config) error
 }
 
-var commands = map[string]cliCommand{
-	"exit": {
-		name:        "exit",
-		description: "Exit the Pokedex",
-		callback:    commandExit,
-	},
+var commands = map[string]cliCommand{	
 	"help" : {
 		name: "help",
 		description: "Displays a help message",
@@ -26,5 +21,11 @@ var commands = map[string]cliCommand{
 		name:"mapb",
 		description: "Displayes the previous list",
 		callback: commandMapback,
+	},
+	
+	"exit": {
+		name:        "exit",
+		description: "Exit the Pokedex",
+		callback:    commandExit,
 	},
 }

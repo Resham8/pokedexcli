@@ -53,13 +53,32 @@ func TestAddGetCache(t *testing.T) {
 func TestReap(t *testing.T) {
 	interval := time.Millisecond * 10
 	cache := NewCache(interval)
+
 	inputKey := "key1"
 	inputVal := []byte("val1")
+	
 	cache.Add(inputKey, inputVal)
 	time.Sleep(interval + time.Microsecond)
 
 	_, ok := cache.Get(inputKey)
 	if ok {
 		t.Errorf("%s should have been reaped",inputKey)
+	} 
+}
+
+func TestReapFail(t *testing.T) {
+	interval := time.Millisecond * 10
+	cache := NewCache(interval)
+
+	inputKey := "key1"
+	inputVal := []byte("val1")
+
+	cache.Add(inputKey, inputVal)
+
+	time.Sleep(interval / 2)
+
+	_, ok := cache.Get(inputKey)
+	if !ok {
+		t.Errorf("%s should not have been reaped",inputKey)
 	} 
 }
