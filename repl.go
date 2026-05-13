@@ -2,8 +2,9 @@ package main
 
 import (
 	"bufio"
-	"fmt"	
-	"os"	
+	"fmt"
+	"os"
+	"strings"
 )
 
 func startREPL(cfg *config) {
@@ -14,10 +15,14 @@ func startREPL(cfg *config) {
 		if scanner.Scan() {
 			line := scanner.Text()
 
-			command, exists := commands[line]
+			words := strings.Fields(line)
+			commandName := words[0]
+
+			args := words[1:]
+			command, exists := commands[commandName]
 
 			if exists {
-				err := command.callback(cfg)
+				err := command.callback(cfg, args)
 
 				if err != nil {
 					fmt.Println(err)
