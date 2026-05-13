@@ -32,6 +32,11 @@ var commands = map[string]cliCommand{
 		description: "catch's the pokemon",
 		callback: commandCatch,
 	},
+	"inspect":{
+		name: "inspect {pokemon_name}",
+		description: "Displays details about the pokemon",
+		callback: commandInspect,
+	},
 	"exit": {
 		name:        "exit",
 		description: "Exit the Pokedex",

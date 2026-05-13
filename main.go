@@ -15,6 +15,7 @@ type config struct {
 func main() {
 	cfg := config{
 		pokeapiClient: pokeapi.NewClient(time.Hour),
+		caughtPokemon: make(map[string]pokeapi.Pokemon),
 	}
 
 	startREPL(&cfg)
