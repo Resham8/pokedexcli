@@ -15,14 +15,14 @@ func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
 	data, ok := c.cache.Get(fullUrl)
 
 	if ok {		
-		pokemonData := Pokemon{}
-		err := json.Unmarshal(data, &pokemonData)
+		pokemon := Pokemon{}
+		err := json.Unmarshal(data, &pokemon)
 
 		if err != nil {
 			return Pokemon{}, err
 		}
 
-		return pokemonData, nil
+		return pokemon, nil
 	}	
 
 	req, err := http.NewRequest("GET", fullUrl, nil)
@@ -47,8 +47,8 @@ func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
 		return Pokemon{}, err
 	}
 
-	pokemonData := Pokemon{}
-	err = json.Unmarshal(data, &pokemonData)
+	pokemon := Pokemon{}
+	err = json.Unmarshal(data, &pokemon)
 
 	if err != nil {
 		return Pokemon{}, err
@@ -56,5 +56,5 @@ func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
 
 	c.cache.Add(fullUrl, data)
 
-	return pokemonData, nil
+	return pokemon, nil
 }
