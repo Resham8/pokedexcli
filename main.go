@@ -17,6 +17,7 @@ func main() {
 		pokeapiClient: pokeapi.NewClient(time.Hour),
 		caughtPokemon: make(map[string]pokeapi.Pokemon),
 	}
-
+initCommands()
 	startREPL(&cfg)
 }
+	

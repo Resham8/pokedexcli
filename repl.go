@@ -1,36 +1,47 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/chzyer/readline"
 	"strings"
 )
 
 func startREPL(cfg *config) {
-	scanner := bufio.NewScanner(os.Stdin)
+
+	rl, err := readline.New("Pokedex > ")
+	if err != nil {
+		panic(err)
+	}
+	defer rl.Close()
+
 	for {
-		fmt.Print("Pokedex > ")
+		line, err := rl.Readline()
 
-		if scanner.Scan() {
-			line := scanner.Text()
+		if err != nil {
+			break
+		}
 
-			words := strings.Fields(line)
-			commandName := words[0]
+		line = strings.TrimSpace(line)
 
-			args := words[1:]
-			command, exists := commands[commandName]
+		if line == "" {
+			continue
+		}
 
-			if exists {
-				err := command.callback(cfg, args)
+		words := strings.Fields(line)
 
-				if err != nil {
-					fmt.Println(err)
-				}
-			} else {
-				fmt.Println("Unknown command")
+		commandName := words[0]
+		args := words[1:]
+
+		command, exists := commands[commandName]
+
+		if exists {
+			err := command.callback(cfg, args)
+
+			if err != nil {
+				fmt.Println(err)
 			}
-
+		} else {
+			fmt.Println("Unknown command")
 		}
 	}
 }
