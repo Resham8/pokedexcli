@@ -13,11 +13,11 @@ type config struct {
 }
 
 func main() {
+	initCommands()
 	cfg := config{
 		pokeapiClient: pokeapi.NewClient(time.Hour),
 		caughtPokemon: make(map[string]pokeapi.Pokemon),
 	}
-initCommands()
+
 	startREPL(&cfg)
 }
-	
